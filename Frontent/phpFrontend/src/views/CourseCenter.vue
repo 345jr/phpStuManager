@@ -1,7 +1,7 @@
 <script setup>
 import CourseCard from '@/components/CourseCard.vue';
 import axios from 'axios';
-import Data from '@/data.json'
+// import Data from '@/data.json'
 import { ref , onMounted } from 'vue';
 const api_courses = ref([]);
 onMounted(async () => {

@@ -18,7 +18,6 @@ const handleLogin = async () => {
       email: username.value,
       password: password.value,    
     });
-    console.log(response.data);
     if (response.data.success) {
 
       localStorage.setItem('token', response.data.token);

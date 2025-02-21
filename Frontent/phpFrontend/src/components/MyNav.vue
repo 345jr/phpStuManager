@@ -1,13 +1,11 @@
 <script setup>
-import { useRouter } from 'vue-router'
-
-// 获取路由实例
-const router = useRouter()
-
-// 可选：定义导航跳转方法
-const navigateTo = (path) => {
-    router.push(path)
-}
+// import { useRouter } from 'vue-router'
+// // 获取路由实例
+// // const router = useRouter()
+// // // 可选：定义导航跳转方法
+// // const navigateTo = (path) => {
+// //     router.push(path)
+// // }
 </script>
 
 <template>
