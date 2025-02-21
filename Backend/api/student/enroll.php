@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../includes/auth.php';
 require_once __DIR__ . '/../../includes/functions.php';
 
 setJsonHeader();
-checkStudentAuth();
+// checkStudentAuth();
 
 // 仅接受POST请求
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

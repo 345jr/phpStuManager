@@ -1,6 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
+
+const router = useRouter();
 
 // 学生信息
 const student = ref({
@@ -12,15 +15,15 @@ const student = ref({
 // 已选课程列表
 const enrolledCourses = ref([]);
 
-// 获取学生信息
-const fetchStudentInfo = async () => {
-  try {
-    const response = await axios.get('/api/student/info');
-    student.value = response.data;
-  } catch (error) {
-    console.error('获取学生信息失败:', error);
-  }
-};
+// // 获取学生信息
+// const fetchStudentInfo = async () => {
+//   try {
+//     const response = await axios.get('/api/student/info');
+//     student.value = response.data;
+//   } catch (error) {
+//     console.error('获取学生信息失败:', error);
+//   }
+// };
 
 // 获取已选课程
 const fetchEnrolledCourses = async () => {
@@ -44,10 +47,34 @@ const unenrollCourse = async (courseId) => {
   }
 };
 
+// 退出登录功能
+const handleLogout = async () => {
+  try {
+    const response = await axios.post('/api/student/logout.php', {}, {
+      withCredentials: true // 支持会话
+    });
+    if (response.data.success) {
+      
+      localStorage.removeItem('token');
+      
+      router.push('/');
+    } else {
+      alert('退出登录失败: ' + response.data.message);
+    }
+  } catch (error) {
+    console.error('退出登录失败:', error);
+    alert('退出登录失败');
+  }
+};
+
 // 页面加载时获取数据
 onMounted(() => {
 //   fetchStudentInfo();
   fetchEnrolledCourses();
+  const storedStudent = localStorage.getItem('student');
+    if (storedStudent) {
+      student.value = JSON.parse(storedStudent);
+    }
 });
 </script>
 
@@ -58,9 +85,16 @@ onMounted(() => {
       <div class="bg-white shadow-md rounded-lg p-6 mb-8 flex items-center space-x-6">
         <img :src="student.avatar" alt="学生头像" class="w-24 h-24 rounded-full object-cover">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800">{{ student.name }}</h1>
+          <h1 class="text-2xl font-bold text-gray-800">姓名 :{{ student.name }}</h1>
           <p class="text-gray-600">学号: {{ student.id }}</p>
         </div>
+        <!-- 退出登录按钮 -->
+        <button 
+          @click="handleLogout" 
+          class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors"
+        >
+          退出登录
+        </button>
       </div>
 
       <!-- 已选课程 -->

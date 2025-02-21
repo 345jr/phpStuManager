@@ -8,22 +8,23 @@ const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
-const formData = new FormData();
-formData.append('email', 'student5@example.com');
-formData.append('password', 'password5');
 // 路由实例
 const router = useRouter();
 
 // 登录处理函数
 const handleLogin = async () => {
   try {
-    const response = await axios.post('/api/student/login.php', formData,{
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    const response = await axios.post('/api/student/login.php',{
+      email: username.value,
+      password: password.value,    
     });
+    console.log(response.data);
     if (response.data.success) {
-      // 登录成功，保存 token
+
       localStorage.setItem('token', response.data.token);
-      router.push('/home'); // 跳转到首页
+      localStorage.setItem('student', JSON.stringify(response.data.student));
+      
+      router.push('/Me'); 
     } else {
       errorMessage.value = '用户名或密码错误';
     }

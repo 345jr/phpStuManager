@@ -12,7 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // 跨域设置（开发环境用）
-header('Access-Control-Allow-Origin: http://localhost:8080'); // 根据Vue前端地址修改
+header('Access-Control-Allow-Origin: http://localhost:5173'); // 根据Vue前端地址修改
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Headers: Content-Type');
 
@@ -28,17 +28,17 @@ function checkAdminAuth() {
     }
 }
 
-// 学生权限验证
-function checkStudentAuth() {
-    if (!isset($_SESSION['student_id'])) {
-        http_response_code(401);
-        die(json_encode([
-            'code' => 401,
-            'error' => '需要学生登录',
-            'login_route' => '/student/login.php'
-        ]));
-    }
-}
+// // 学生权限验证
+// function checkStudentAuth() {
+//     if (!isset($_SESSION['student_id'])) {
+//         http_response_code(401);
+//         die(json_encode([
+//             'code' => 401,
+//             'error' => '需要学生登录',
+//             'login_route' => '/student/login.php'
+//         ]));
+//     }
+// }
 
 // 通用响应头设置
 function setJsonHeader() {
