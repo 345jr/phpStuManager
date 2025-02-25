@@ -15,16 +15,6 @@ const student = ref({
 // 已选课程列表
 const enrolledCourses = ref([]);
 
-// // 获取学生信息
-// const fetchStudentInfo = async () => {
-//   try {
-//     const response = await axios.get('/api/student/info');
-//     student.value = response.data;
-//   } catch (error) {
-//     console.error('获取学生信息失败:', error);
-//   }
-// };
-
 // 获取已选课程
 const fetchEnrolledCourses = async () => {
   try {
@@ -69,7 +59,6 @@ const handleLogout = async () => {
 
 // 页面加载时获取数据
 onMounted(() => {
-//   fetchStudentInfo();
   fetchEnrolledCourses();
   const storedStudent = localStorage.getItem('student');
     if (storedStudent) {
