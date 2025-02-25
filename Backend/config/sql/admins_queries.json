@@ -1,0 +1,8 @@
+{
+  "getAdminById": "SELECT * FROM admins WHERE id = ?",
+  "getAllAdmins": "SELECT * FROM admins",
+  "insertAdmin": "INSERT INTO admins (name, email, password) VALUES (?, ?, ?)",
+  "updateAdmin": "UPDATE admins SET name = ?, email = ?, password = ? WHERE id = ?",
+  "deleteAdmin": "DELETE FROM admins WHERE id = ?",
+  "getAdminByEmail": "SELECT * FROM admins WHERE email = ?"
+}

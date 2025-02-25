@@ -1,0 +1,9 @@
+{
+  "getEnrollmentById": "SELECT * FROM enrollments WHERE enrollment_id = ?",
+  "getAllEnrollments": "SELECT * FROM enrollments",
+  "insertEnrollment": "INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)",
+  "updateEnrollment": "UPDATE enrollments SET student_id = ?, course_id = ? WHERE enrollment_id = ?",
+  "deleteEnrollment": "DELETE FROM enrollments WHERE enrollment_id = ?",
+  "getEnrollmentsByStudentId": "SELECT * FROM enrollments WHERE student_id = ?",
+  "deleteEnrollmentByStudentAndCourse": "DELETE FROM enrollments WHERE student_id = ? AND course_id = ?"
+}

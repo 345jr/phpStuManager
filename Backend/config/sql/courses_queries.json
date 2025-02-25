@@ -1,0 +1,9 @@
+{
+  "getCourseById": "SELECT * FROM courses WHERE course_id = ?",
+  "getAllCourses": "SELECT * FROM courses",
+  "insertCourse": "INSERT INTO courses (course_name, max_students, brief, description, teacher, start_time, class_hour, current_num, course_tag) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+  "updateCourse": "UPDATE courses SET course_name = ?, max_students = ?, brief = ?, description = ?, teacher = ?, start_time = ?, class_hour = ?, current_num = ?, course_tag = ? WHERE course_id = ?",
+  "deleteCourse": "DELETE FROM courses WHERE course_id = ?",
+  "incrementCurrentNum": "UPDATE courses SET current_num = current_num + 1 WHERE course_id = ?",
+  "decrementCurrentNum": "UPDATE courses SET current_num = current_num - 1 WHERE course_id = ?"
+}
