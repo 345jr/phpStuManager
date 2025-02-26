@@ -32,23 +32,36 @@ $body = json_decode(file_get_contents('php://input'), true);
 
 // 路由配置
 switch ($path) {
-    case '/login'://学生登录
+    case '/api/login': //学生登录
         if ($method === 'POST') {
             $authController->login($body['email'], $body['password'], $body['role']);
         }
         break;
-    case '/logout'://学生登出
+    case '/api/logout': //学生登出
         if ($method === 'POST') {
             $authController->logout();
         }
         break;
-    case '/courses'://查询所有课程
+    case '/api/check-session': //检查是否登录
+        if ($method === 'GET') {
+            session_start(); 
+            if (isset($_SESSION['user_id'])) {
+                http_response_code(200);
+                echo json_encode(['message' => 'Session valid']);
+            } else {
+                http_response_code(401);
+                echo json_encode(['message' => 'Unauthorized']);
+            }
+        }
+        break;
+    case '/api/courses': //查询所有课程
         if ($method === 'GET') {
             $studentController->getAllCourses();
         }
         break;
-    case '/enrolledCourses'://查询已选课程，根据学生学号
+    case '/api/enrolledCourses': //查询已选课程，根据学生学号
         if ($method === 'GET') {
+            session_start();
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
                 $studentController->getEnrolledCourses($studentId);
@@ -58,7 +71,7 @@ switch ($path) {
             }
         }
         break;
-    case '/enroll'://选课
+    case '/api/enroll': //选课
         if ($method === 'POST') {
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
@@ -69,7 +82,7 @@ switch ($path) {
             }
         }
         break;
-    case '/unenroll'://退课
+    case '/api/unenroll': //退课
         if ($method === 'POST') {
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
@@ -80,7 +93,7 @@ switch ($path) {
             }
         }
         break;
-    case '/studentInfo'://查看学生信息
+    case '/api/studentInfo': //查看学生信息
         if ($method === 'GET') {
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
@@ -91,47 +104,47 @@ switch ($path) {
             }
         }
         break;
-    case '/admin/login':
+    case '/api/admin/login':
         if ($method === 'POST') {
             $adminController->login($body['email'], $body['password']);
         }
         break;
-    case '/admin/logout':
+    case '/api/admin/logout':
         if ($method === 'POST') {
             $adminController->logout();
         }
         break;
-    case '/admin/registerStudent'://管理员注册学生
+    case '/api/admin/registerStudent': //管理员注册学生
         if ($method === 'POST') {
             $adminController->registerStudent($body['name'], $body['email'], $body['password']);
         }
         break;
-    case '/admin/unregisterStudent'://管理员注销学生
+    case '/api/admin/unregisterStudent': //管理员注销学生
         if ($method === 'DELETE') {
             $adminController->unregisterStudent($body['studentId']);
         }
         break;
-    case '/admin/registerCourse'://管理员注册课程
+    case '/api/admin/registerCourse': //管理员注册课程
         if ($method === 'POST') {
             $adminController->registerCourse($body);
         }
         break;
-    case '/admin/unregisterCourse'://管理员注销课程
+    case '/api/admin/unregisterCourse': //管理员注销课程
         if ($method === 'DELETE') {
             $adminController->unregisterCourse($body['courseId']);
         }
         break;
-    case '/admin/enrollStudents'://管理员选课
+    case '/api/admin/enrollStudents': //管理员选课
         if ($method === 'POST') {
             $adminController->enrollStudentsInCourse($body['studentIds'], $body['courseId']);
         }
         break;
-    case '/admin/unenrollStudents'://管理员退课
+    case '/api/admin/unenrollStudents': //管理员退课
         if ($method === 'POST') {
             $adminController->unenrollStudentsFromCourse($body['studentIds'], $body['courseId']);
         }
         break;
-    case '/admin/courseInfo'://管理员查看课程信息
+    case '/api/admin/courseInfo': //管理员查看课程信息
         if ($method === 'GET') {
             $adminController->getCourseInfo($params['courseId']);
         }
@@ -141,4 +154,3 @@ switch ($path) {
         echo json_encode(['message' => 'Not Found']);
         break;
 }
-?>

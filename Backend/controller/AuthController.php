@@ -14,10 +14,22 @@ class AuthController {
         if ($user) {
             session_start();
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $role;
-            $this->respond(200, ['message' => 'Login successful']);
+            $_SESSION['role'] = $role;            
+            $this->respond(200, [
+                'success' => true,
+                'student' => [
+                    'id' => $user['id'],
+                    'email' => $email,
+                    'role' => $role
+                    
+                ],
+                'message' => 'Login successful'
+            ]);
         } else {
-            $this->respond(401, ['message' => 'Invalid email or password']);
+            $this->respond(401, [
+                'success' => false,
+                'message' => 'Invalid email or password'
+            ]);
         }
     }
 

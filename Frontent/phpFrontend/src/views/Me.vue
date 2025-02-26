@@ -18,8 +18,10 @@ const enrolledCourses = ref([]);
 // 获取已选课程
 const fetchEnrolledCourses = async () => {
   try {
-    const response = await axios.get('/api/student/enrolled.php');
-    enrolledCourses.value = response.data.courses;
+    const response = await axios.get('/api/enrolledCourses', {
+      withCredentials: true  
+    });
+    enrolledCourses.value = response.data;
   } catch (error) {
     console.error('获取已选课程失败:', error);
   }
@@ -40,13 +42,13 @@ const unenrollCourse = async (courseId) => {
 // 退出登录功能
 const handleLogout = async () => {
   try {
-    const response = await axios.post('/api/student/logout.php', {}, {
+    const response = await axios.post('/api/logout', {}, {
       withCredentials: true // 支持会话
     });
-    if (response.data.success) {
+    if (response.status === 200) {
       
       localStorage.removeItem('token');
-      
+      localStorage.removeItem('student');
       router.push('/');
     } else {
       alert('退出登录失败: ' + response.data.message);
@@ -60,10 +62,10 @@ const handleLogout = async () => {
 // 页面加载时获取数据
 onMounted(() => {
   fetchEnrolledCourses();
-  const storedStudent = localStorage.getItem('student');
-    if (storedStudent) {
-      student.value = JSON.parse(storedStudent);
-    }
+  // const storedStudent = localStorage.getItem('student');
+  //   if (storedStudent) {
+  //     student.value = JSON.parse(storedStudent);
+  //   }
 });
 </script>
 
@@ -92,7 +94,7 @@ onMounted(() => {
         <div v-if="enrolledCourses.length > 0" class="space-y-4">
           <div v-for="course in enrolledCourses" :key="course.course_id" class="flex justify-between items-center p-4 bg-gray-50 rounded-md">
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">{{ course.course_name }}</h3>
+              <h3 class="text-lg font-semibold text-gray-800">课程名字 :{{ course.course_id }}</h3>
               <p class="text-sm text-gray-500">开课时间: {{ course.startTime }}</p>
               <p class="text-sm text-gray-500">教师: {{ course.teacher }}</p>
             </div>

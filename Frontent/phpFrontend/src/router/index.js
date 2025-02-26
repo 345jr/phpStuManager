@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "@/views/Login.vue";
+import axios from 'axios';
+
 // 定义路由
 const routes = [
   {
@@ -43,12 +45,26 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem("token");
-  if (to.meta.requiresAuth && !token) {
-    next("/login"); // 未登录，跳转到登录页
+router.beforeEach(async (to, from, next) => {
+  // 如果页面需要认证
+  if (to.meta.requiresAuth) {
+    try {
+      // 请求后端验证会话状态
+      await axios.get('/api/check-session', {
+        withCredentials: true // 携带 Cookie
+      });
+      next(); // 会话有效，继续导航
+    } catch (error) {
+      if (error.response?.status === 401) {
+        localStorage.removeItem('token'); // 可选：清理 token
+        next('/login'); // 会话无效，跳转登录页
+      } else {
+        console.error('检查会话失败:', error);
+        next('/login'); // 其他错误也跳转登录页
+      }
+    }
   } else {
-    next(); // 已登录或访问无需认证的页面
+    next(); // 无需认证的页面直接放行
   }
 });
 
