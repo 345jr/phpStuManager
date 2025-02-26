@@ -73,6 +73,7 @@ switch ($path) {
         break;
     case '/api/enroll': //选课
         if ($method === 'POST') {
+            session_start();
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
                 $studentController->enrollCourse($studentId, $body['courseId']);
@@ -84,6 +85,7 @@ switch ($path) {
         break;
     case '/api/unenroll': //退课
         if ($method === 'POST') {
+            session_start();
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
                 $studentController->unenrollCourse($studentId, $body['courseId']);
@@ -95,6 +97,7 @@ switch ($path) {
         break;
     case '/api/studentInfo': //查看学生信息
         if ($method === 'GET') {
+            session_start();
             $studentId = $_SESSION['user_id'] ?? null;
             if ($studentId) {
                 $studentController->getStudentInfo($studentId);

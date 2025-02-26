@@ -44,6 +44,7 @@ function filterByTag(tag) {
         <h2 class="text-2xl font-bold text-gray-800">选课中心</h2>
         <div class="relative group">
           <button class="bg-blue-500 text-white py-1 px-3 rounded inline-flex items-center">
+            <i class=""></i>
             <span>标签分类</span>
           </button>
           <div

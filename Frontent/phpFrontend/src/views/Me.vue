@@ -5,15 +5,9 @@ import axios from 'axios';
 
 const router = useRouter();
 
-// 学生信息
-const student = ref({
-  name: '',
-  avatar: '',
-  id: ''
-});
-
-// 已选课程列表
 const enrolledCourses = ref([]);
+const StudentInfo = ref({});
+
 
 // 获取已选课程
 const fetchEnrolledCourses = async () => {
@@ -27,10 +21,23 @@ const fetchEnrolledCourses = async () => {
   }
 };
 
+//获取学生信息
+const fetchStudentInfo = async () => {
+  try {
+    const response = await axios.get('/api/studentInfo', {
+      withCredentials: true  
+    });
+    StudentInfo.value = response.data;
+  } catch (error) {
+    console.error('获取学生信息失败:', error);
+  }
+};
 // 退课功能
 const unenrollCourse = async (courseId) => {
   try {
-    await axios.delete(`/api/student/withdraw.php?course_id=${courseId}`);
+    await axios.post(`/api/unenroll`, {
+      courseId,
+    });
     alert('退课成功');
     fetchEnrolledCourses(); // 刷新课程列表
   } catch (error) {
@@ -62,10 +69,7 @@ const handleLogout = async () => {
 // 页面加载时获取数据
 onMounted(() => {
   fetchEnrolledCourses();
-  // const storedStudent = localStorage.getItem('student');
-  //   if (storedStudent) {
-  //     student.value = JSON.parse(storedStudent);
-  //   }
+  fetchStudentInfo();
 });
 </script>
 
@@ -74,10 +78,11 @@ onMounted(() => {
     <div class="max-w-4xl mx-auto">
       <!-- 学生信息 -->
       <div class="bg-white shadow-md rounded-lg p-6 mb-8 flex items-center space-x-6">
-        <img :src="student.avatar" alt="学生头像" class="w-24 h-24 rounded-full object-cover">
+        <img :src="StudentInfo.avatar" alt="学生头像" class="w-24 h-24 rounded-full object-cover">
         <div>
-          <h1 class="text-2xl font-bold text-gray-800">姓名 :{{ student.name }}</h1>
-          <p class="text-gray-600">学号: {{ student.id }}</p>
+          <h1 class="text-2xl font-bold text-gray-800">姓名 :{{ StudentInfo.name }}</h1>
+          <p class="text-gray-600">学号: {{ StudentInfo.id }}</p>
+          <p class="text-gray-600">账号: {{ StudentInfo.email }}</p>
         </div>
         <!-- 退出登录按钮 -->
         <button 

@@ -25,8 +25,6 @@ const handleLogin = async () => {
     });
     
     if (response.data.success) {
-      // localStorage.setItem('token', response.data.token);
-      // localStorage.setItem('student', JSON.stringify(response.data.student));
       router.push('/Me');
     } else {
       errorMessage.value = '登录信息错误';

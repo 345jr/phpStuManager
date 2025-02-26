@@ -1,11 +1,5 @@
 <script setup>
-// import { useRouter } from 'vue-router'
-// // 获取路由实例
-// // const router = useRouter()
-// // // 可选：定义导航跳转方法
-// // const navigateTo = (path) => {
-// //     router.push(path)
-// // }
+
 </script>
 
 <template>
@@ -27,6 +21,7 @@
                    hover:drop-shadow-[0_2px_10px_rgba(96,165,250,0.6)] group"
             active-class="!text-white font-semibold">
             <span class="group-hover:scale-105 transition-transform">选课中心</span>
+            <i class="pi pi-flag-fill pl-2 text-red-400"></i>
             <div class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all group-hover:w-full"></div>
           </router-link>
   
@@ -36,6 +31,7 @@
                    hover:drop-shadow-[0_2px_10px_rgba(96,165,250,0.6)] group"
             active-class="!text-white font-semibold">
             <span class="group-hover:scale-105 transition-transform">个人中心</span>
+            <i class="pi pi-user pl-2 text-green-400"></i>
             <div class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all group-hover:w-full"></div>
           </router-link>
   
@@ -45,6 +41,7 @@
                    hover:drop-shadow-[0_2px_10px_rgba(96,165,250,0.6)] group"
             active-class="!text-white font-semibold">
             <span class="group-hover:scale-105 transition-transform">关于</span>
+            <i class="pi pi-info-circle pl-2 text-blue-500"></i>
             <div class="absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all group-hover:w-full"></div>
           </router-link>
         </div>
