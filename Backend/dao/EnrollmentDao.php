@@ -24,17 +24,17 @@ class EnrollmentDAO {
     public function insertEnrollment($enrollment) {
         $stmt = $this->db->prepare(SQLQueries::getQuery('enrollments', 'insertEnrollment'));
         $stmt->execute([
-            $enrollment->getStudentId(),
-            $enrollment->getCourseId()
+            $enrollment->getStudent_id(),
+            $enrollment->getCourses_id()
         ]);
     }
 
     public function updateEnrollment($enrollment) {
         $stmt = $this->db->prepare(SQLQueries::getQuery('enrollments', 'updateEnrollment'));
         $stmt->execute([
-            $enrollment->getStudentId(),
-            $enrollment->getCourseId(),
-            $enrollment->getEnrollmentId()
+            $enrollment->getStudent_id(),
+            $enrollment->getCourses_id(),
+            $enrollment->getEnrollment_id()
         ]);
     }
 

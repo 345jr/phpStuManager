@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../model/Enrollment.php';
 require_once __DIR__ . '/../dao/EnrollmentDAO.php';
 require_once __DIR__ . '/../dao/CourseDAO.php';
 

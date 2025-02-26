@@ -36,7 +36,7 @@ class StudentDAO {
             $student->getName(),
             $student->getEmail(),
             $student->getPassword(),
-            $student->getStudentId()
+            $student->getid()
         ]);
     }
 
