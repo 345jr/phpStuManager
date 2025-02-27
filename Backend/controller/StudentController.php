@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../service/CourseService.php';
 require_once __DIR__ . '/../service/EnrollmentService.php';
 require_once __DIR__ . '/../service/StudentService.php';
+require_once __DIR__ . '/../model/Course.php';
 
 class StudentController {
     private $courseService;
@@ -21,8 +22,15 @@ class StudentController {
     }
 
     public function getEnrolledCourses($studentId) {
+        /**
+         * 这里服务层返回的课程并不是多个课程，也不是具体的课程信息，而是中间表的信息，内含记录id，学生id和课程id
+         */
         $courses = $this->enrollmentService->getEnrollmentsByStudentId($studentId);
-        $this->respond(200, $courses);
+        /**
+         * 为不进行大量更改暂时在此处调用课程服务查询课程信息
+         */
+        $courseInformation = $this->courseService->getCourseById($studentId);
+        $this->respond(200, $courseInformation);
     }
 
     public function enrollCourse($studentId, $courseId) {
