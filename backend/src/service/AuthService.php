@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . '/../dao/AdminDAO.php';
-require_once __DIR__ . '/../dao/StudentDAO.php';
+require_once __DIR__ . '/../dao/AdminDao.php';
+require_once __DIR__ . '/../dao/StudentDao.php';
 
 class AuthService {
     private $adminDAO;

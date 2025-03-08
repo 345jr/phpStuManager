@@ -32,6 +32,11 @@ $body = json_decode(file_get_contents('php://input'), true);
 
 // 路由配置
 switch ($path) {
+    case '/api/index.php':
+        if ($method === 'GET') {
+            echo json_encode(['message' => 'Welcome to the API']);
+        }
+        break;
     case '/api/login': //学生登录
         if ($method === 'POST') {
             $authController->login($body['email'], $body['password'], $body['role']);

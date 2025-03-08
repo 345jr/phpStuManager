@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../dao/CourseDAO.php';
+require_once __DIR__ . '/../dao/CourseDao.php';
 
 class CourseService {
     private $courseDAO;

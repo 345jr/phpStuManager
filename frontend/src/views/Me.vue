@@ -16,6 +16,7 @@ const fetchEnrolledCourses = async () => {
       withCredentials: true  
     });
     enrolledCourses.value = response.data;
+    console.log(enrolledCourses.value);
   } catch (error) {
     console.error('获取已选课程失败:', error);
   }

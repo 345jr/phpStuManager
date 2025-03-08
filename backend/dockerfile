@@ -1,0 +1,11 @@
+FROM php:8.1-fpm
+
+# 安装 MySQL 扩展
+RUN docker-php-ext-install pdo pdo_mysql
+
+# 复制代码到容器
+COPY . /var/www/backend
+WORKDIR /var/www/backend
+
+# 设置权限
+RUN chown -R www-data:www-data /var/www/backend
