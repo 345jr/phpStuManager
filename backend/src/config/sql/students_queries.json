@@ -1,0 +1,8 @@
+{
+  "getStudentById": "SELECT * FROM students WHERE id = ?",
+  "getAllStudents": "SELECT * FROM students",
+  "insertStudent": "INSERT INTO students (name, email, password) VALUES (?, ?, ?)",
+  "updateStudent": "UPDATE students SET name = ?, email = ?, password = ? WHERE id = ?",
+  "deleteStudent": "DELETE FROM students WHERE id = ?",
+  "getStudentByEmail": "SELECT * FROM students WHERE email = ?"
+}

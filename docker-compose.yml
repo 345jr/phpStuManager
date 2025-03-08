@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  php-api:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: php-api
+    expose:
+      - "9000"
+    volumes:
+      - ./backend/src:/var/www/backend
+    depends_on:
+      - mysql
+
+  nginx:
+    build: 
+      context: ./nginx
+      dockerfile: dockerfile
+    container_name: nginx
+    ports:
+      - "8080:80" # 映射到宿主机的 8080 端口
+    volumes:
+      - ./dist:/usr/share/nginx/html
+    depends_on:
+      - php-api
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: mydb
+      MYSQL_DEFAULT_CHARACTER_SET: utf8mb4  
+      MYSQL_DEFAULT_COLLATION: utf8mb4_unicode_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    expose:
+      - "3306"
+
+volumes:
+  mysql-data:
