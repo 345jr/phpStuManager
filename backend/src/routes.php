@@ -17,6 +17,7 @@ if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
 }
+
 // 处理预检请求
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
