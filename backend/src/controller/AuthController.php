@@ -42,8 +42,8 @@ class AuthController {
 
     // 响应处理方法
     private function respond($status, $data) {
-        http_response_code($status);
         header('Content-Type: application/json; charset=UTF-8');
+        http_response_code($status);
         echo json_encode($data , JSON_UNESCAPED_UNICODE);
     }
 }
