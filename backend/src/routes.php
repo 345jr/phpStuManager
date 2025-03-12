@@ -1,11 +1,22 @@
 <?php
 
 // CORS 配置
-header("Access-Control-Allow-Origin: *"); // 允许所有来源的请求
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // 允许的请求方法
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // 允许的请求头
-header("Content-Type: application/json; charset=UTF-8"); // 明确指定 UTF-8
+// header("Access-Control-Allow-Origin: *"); // 允许所有来源的请求
+// header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // 允许的请求方法
+// header("Access-Control-Allow-Headers: Content-Type, Authorization"); // 允许的请求头
+// header("Content-Type: application/json; charset=UTF-8"); // 明确指定 UTF-8
 
+$allowed_origins = [
+    'http://a39.php.youyue.info',
+    'http://199.115.229.247:8080'
+];
+
+if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
+    header("Access-Control-Allow-Origin: " . $_SERVER['HTTP_ORIGIN']);
+    header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE");
+    header("Access-Control-Allow-Headers: Content-Type, Authorization");
+}
 // 处理预检请求
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);

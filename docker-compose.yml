@@ -1,10 +1,9 @@
-version: '3.8'
 services:
   php-api:
     build:
       context: ./backend
       dockerfile: dockerfile
-    container_name: php-api
+    container_name: php_api
     expose:
       - "9000"
     volumes:
@@ -25,7 +24,7 @@ services:
       - php-api
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0-oracle
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
