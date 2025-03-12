@@ -4,6 +4,7 @@
 header("Access-Control-Allow-Origin: *"); // 允许所有来源的请求
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // 允许的请求方法
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // 允许的请求头
+header("Content-Type: application/json; charset=UTF-8"); // 明确指定 UTF-8
 
 // 处理预检请求
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -34,9 +35,8 @@ $body = json_decode(file_get_contents('php://input'), true);
 switch ($path) {
     case '/api/index.php':
         if ($method === 'GET') {
-            echo json_encode(['message' => 'Welcome to the API']);
+            echo json_encode(['message' => 'Welcome to the API , 中文测试'], JSON_UNESCAPED_UNICODE);
         }
-        break;
     case '/api/login': //学生登录
         if ($method === 'POST') {
             $authController->login($body['email'], $body['password'], $body['role']);

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
+const API_BASE_URL = 'http://199.115.229.247:8080';
 // 表单数据
 const email = ref('');  // 改为 email 与后端参数一致
 const password = ref('');
@@ -15,7 +16,7 @@ const router = useRouter();
 // 登录处理函数
 const handleLogin = async () => {
   try {
-    const response = await axios.post('/api/login', {
+    const response = await axios.post(`${API_BASE_URL}/api/login`, {
       email: email.value,
       password: password.value,
       role: role.value

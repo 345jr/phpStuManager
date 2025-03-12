@@ -12,7 +12,7 @@ const StudentInfo = ref({});
 // 获取已选课程
 const fetchEnrolledCourses = async () => {
   try {
-    const response = await axios.get('/api/enrolledCourses', {
+    const response = await axios.get('http://199.115.229.247:8080/api/enrolledCourses', {
       withCredentials: true  
     });
     enrolledCourses.value = response.data;
@@ -25,7 +25,7 @@ const fetchEnrolledCourses = async () => {
 //获取学生信息
 const fetchStudentInfo = async () => {
   try {
-    const response = await axios.get('/api/studentInfo', {
+    const response = await axios.get('http://199.115.229.247:8080/api/studentInfo', {
       withCredentials: true  
     });
     StudentInfo.value = response.data;
@@ -36,7 +36,7 @@ const fetchStudentInfo = async () => {
 // 退课功能
 const unenrollCourse = async (courseId) => {
   try {
-    await axios.post(`/api/unenroll`, {
+    await axios.post(`http://199.115.229.247:8080/api/unenroll`, {
       courseId,
     });
     alert('退课成功');
@@ -100,8 +100,8 @@ onMounted(() => {
         <div v-if="enrolledCourses.length > 0" class="space-y-4">
           <div v-for="course in enrolledCourses" :key="course.course_id" class="flex justify-between items-center p-4 bg-gray-50 rounded-md">
             <div>
-              <h3 class="text-lg font-semibold text-gray-800">课程名字 :{{ course.course_id }}</h3>
-              <p class="text-sm text-gray-500">开课时间: {{ course.startTime }}</p>
+              <h3 class="text-lg font-semibold text-gray-800">课程名字 :{{ course.course_name }}</h3>
+              <p class="text-sm text-gray-500">开课时间: {{ course.start_time }} 课时 : {{ course.class_hour }}</p>
               <p class="text-sm text-gray-500">教师: {{ course.teacher }}</p>
             </div>
             <button @click="unenrollCourse(course.course_id)" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">

@@ -14,7 +14,7 @@ const availableTags = computed(() => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get('/api/courses');
+    const response = await axios.get('http://199.115.229.247:8080/api/courses');
     api_courses.value = response.data;
   } catch (error) {
     console.error('获取课程数据失败:', error);

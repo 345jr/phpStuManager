@@ -114,8 +114,8 @@ class AdminController {
     // 响应处理方法
     private function respond($status, $data) {
         http_response_code($status);
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 }
 ?>

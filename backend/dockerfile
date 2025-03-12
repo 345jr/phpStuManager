@@ -1,10 +1,28 @@
-FROM php:8.1-fpm
+# 使用 PHP 8.1 FPM Alpine 版本作为基础镜像
+FROM php:8.1-fpm-alpine
+
+# 设置时区和安装必要的包
+RUN apk update && apk add --no-cache \
+    tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+
+# 安装本地化支持（Alpine 不直接支持 locale-gen，需要 glibc 或 musl-locales）
+RUN apk add --no-cache musl-locales musl-locales-lang \
+    && echo "LANG=zh_CN.UTF-8" > /etc/profile.d/locale.sh \
+    && echo "LANGUAGE=zh_CN:zh" >> /etc/profile.d/locale.sh \
+    && echo "LC_ALL=zh_CN.UTF-8" >> /etc/profile.d/locale.sh
+
+# 设置环境变量
+ENV LANG zh_CN.UTF-8
+ENV LANGUAGE zh_CN:zh
+ENV LC_ALL zh_CN.UTF-8
 
 # 安装 MySQL 扩展
 RUN docker-php-ext-install pdo pdo_mysql
 
 # 复制代码到容器
-COPY . /var/www/backend
+# COPY . /var/www/backend
 WORKDIR /var/www/backend
 
 # 设置权限
