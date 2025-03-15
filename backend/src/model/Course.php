@@ -12,7 +12,7 @@ class Course {
     private $current_num;
     private $course_tag;
 
-    const VALID_COURSE_TAGS = ['数学', '物理', '化学', '生物', '计算机'];
+    const VALID_COURSE_TAGS = ['math', 'physics', 'chemistry', 'biology', 'computer'];
 
     public function __construct($course_id, $course_name, $max_students, $brief, $description, $teacher, $start_time, $class_hour, $current_num, $course_tag) {
         $this->course_id = $course_id;

@@ -4,6 +4,7 @@ require_once __DIR__ . '/../service/CourseService.php';
 require_once __DIR__ . '/../service/EnrollmentService.php';
 require_once __DIR__ . '/../service/StudentService.php';
 require_once __DIR__ . '/../util/PublicFunction.php';
+require_once __DIR__ . '/../model/Course.php';
 
 class StudentController {
     private $courseService;
@@ -25,8 +26,20 @@ class StudentController {
         if (!checkLogin()){
             return;
         }
-        $courses = $this->enrollmentService->getEnrollmentsByStudentId($studentId);
-        $this->respond(200, $courses);
+        // 获取学生的选课记录
+        $enrollments = $this->enrollmentService->getEnrollmentsByStudentId($studentId);
+        
+        // 获取每个选课记录对应的课程详细信息
+        $courseInformation = [];
+        foreach ($enrollments as $enrollment) {
+            $courseId = $enrollment['course_id'];
+            $course = $this->courseService->getCourseById($courseId);
+            if ($course) {
+                $courseInformation[] = $course;
+            }
+        }
+        
+        $this->respond(200, $courseInformation);
     }
 
     public function enrollCourse($studentId, $courseId) {
@@ -68,8 +81,8 @@ class StudentController {
     // 响应处理方法
     private function respond($status, $data) {
         http_response_code($status);
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode($data , JSON_UNESCAPED_UNICODE);
     }
 }
 ?>

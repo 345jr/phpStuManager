@@ -15,6 +15,7 @@ if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed
     header("Access-Control-Allow-Credentials: true");
     header("Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
+    header("Content-Type: application/json; charset=UTF-8"); // 明确指定 UTF-8
 }
 
 // 处理预检请求
@@ -47,9 +48,8 @@ $body = json_decode(file_get_contents('php://input'), true);
 switch ($path) {
     case '/api/index.php':
         if ($method === 'GET') {
-            echo json_encode(['message' => 'Welcome to the API']);
+            echo json_encode(['message' => 'Welcome to the API , 中文测试'], JSON_UNESCAPED_UNICODE);
         }
-        break;
     case '/api/login': //学生登录
         if ($method === 'POST') {
             $authController->login($body['email'], $body['password'], $body['role']);
