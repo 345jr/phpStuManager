@@ -20,7 +20,7 @@ const enrollStatus = ref('');
 // 获取课程详情
 const fetchCourse = async () => {
   try {
-    const response = await axios.get(`/api/courses`);
+    const response = await axios.get(`http://199.115.229.247:8080/api/courses`);
     courses.value = response.data;
     const matchedCourse = courses.value.find(c => c.course_id == courseId);
     if (matchedCourse) {
@@ -42,7 +42,7 @@ const enrollCourse = async (courseId) => {
   if (!course.value) return; 
   isEnrolling.value = true;
   try {
-    const response = await axios.post('/api/enroll', {courseId});
+    const response = await axios.post('http://199.115.229.247:8080/api/enroll', {courseId});
     enrollStatus.value = '选课成功！';
   } catch (error) {
     enrollStatus.value = '选课失败，请稍后重试';

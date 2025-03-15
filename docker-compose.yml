@@ -1,10 +1,9 @@
-version: '3.8'
 services:
   php-api:
     build:
       context: ./backend
       dockerfile: dockerfile
-    container_name: php-api
+    container_name: php_api
     expose:
       - "9000"
     volumes:
@@ -25,13 +24,16 @@ services:
       - php-api
 
   mysql:
-    image: mysql:8.0
+    image: mysql:8.0-oracle
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: mydb
+      MYSQL_DEFAULT_CHARACTER_SET: utf8mb4  
+      MYSQL_DEFAULT_COLLATION: utf8mb4_unicode_ci
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     expose:
       - "3306"
 

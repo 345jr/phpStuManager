@@ -50,7 +50,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.requiresAuth) {
     try {
       // 请求后端验证会话状态
-      await axios.get('/api/check-session', {
+      await axios.get('http://199.115.229.247:8080/api/check-session', {
         withCredentials: true // 携带 Cookie
       });
       next(); // 会话有效，继续导航
