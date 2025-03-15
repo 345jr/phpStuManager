@@ -49,7 +49,6 @@ switch ($path) {
     case '/api/index.php':
         if ($method === 'GET') {
             echo json_encode(['message' => 'Welcome to the API , 中文测试'], JSON_UNESCAPED_UNICODE);
-            echo json_encode(['message' => 'Welcome to the API , 中文测试'], JSON_UNESCAPED_UNICODE);
         }
     case '/api/login': //学生登录
         if ($method === 'POST') {

@@ -12,7 +12,6 @@ mb_internal_encoding('UTF-8');
 spl_autoload_register(function ($class_name) {
     $paths = [
         __DIR__ . '/config',
-        __DIR__ . '/config',
         __DIR__ . '/controller',
         __DIR__ . '/service',
         __DIR__ . '/dao'
