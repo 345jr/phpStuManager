@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../service/CourseService.php';
 require_once __DIR__ . '/../service/EnrollmentService.php';
 require_once __DIR__ . '/../service/StudentService.php';
+require_once __DIR__ . '/../util/PublicFunction.php';
 
 class StudentController {
     private $courseService;
@@ -21,11 +22,17 @@ class StudentController {
     }
 
     public function getEnrolledCourses($studentId) {
+        if (!checkLogin()){
+            return;
+        }
         $courses = $this->enrollmentService->getEnrollmentsByStudentId($studentId);
         $this->respond(200, $courses);
     }
 
     public function enrollCourse($studentId, $courseId) {
+        if (!checkLogin()){
+            return;
+        }
         try {
             $this->enrollmentService->enrollStudentInCourse($studentId, $courseId);
             $this->respond(200, ['message' => 'Enrollment successful']);
@@ -35,6 +42,9 @@ class StudentController {
     }
 
     public function unenrollCourse($studentId, $courseId) {
+        if (!checkLogin()){
+            return;
+        }
         try {
             $this->enrollmentService->unenrollStudentFromCourse($studentId, $courseId);
             $this->respond(200, ['message' => 'Unenrollment successful']);
@@ -44,6 +54,9 @@ class StudentController {
     }
 
     public function getStudentInfo($studentId) {
+        if (!checkLogin()){
+            return;
+        }
         $student = $this->studentService->getStudentById($studentId);
         if ($student) {
             $this->respond(200, $student);

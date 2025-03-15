@@ -10,11 +10,14 @@ class AuthController {
     }
 
     public function login($email, $password, $role) {
+        if(isset($_SESSION['user_id'])){
+            $this->respond(200, ['message' => 'User already logged in']);
+        }
         $user = $this->authService->authenticate($email, $password, $role);
         if ($user) {
-            session_start();
+            // session_start();
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $role;            
+            $_SESSION['role'] = $role;      
             $this->respond(200, [
                 'success' => true,
                 'student' => [
@@ -34,7 +37,7 @@ class AuthController {
     }
 
     public function logout() {
-        session_start();
+        // session_start();
         session_unset();
         session_destroy();
         $this->respond(200, ['message' => 'Logout successful']);
@@ -46,5 +49,6 @@ class AuthController {
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
 }
 ?>

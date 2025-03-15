@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * 弃用
+ */
 require_once __DIR__ . '/../service/AuthService.php';
 require_once __DIR__ . '/../service/ManagementService.php';
 require_once __DIR__ . '/../service/EnrollmentService.php';

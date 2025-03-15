@@ -7,10 +7,10 @@ error_reporting(E_ALL);
 // 自动加载类文件
 spl_autoload_register(function ($class_name) {
     $paths = [
+        __DIR__ . '/config',
         __DIR__ . '/controller',
         __DIR__ . '/service',
-        __DIR__ . '/dao',
-        __DIR__ . '/config'
+        __DIR__ . '/dao'
     ];
     foreach ($paths as $path) {
         $file = $path . '/' . $class_name . '.php';
@@ -20,6 +20,13 @@ spl_autoload_register(function ($class_name) {
         }
     }
 });
+
+require_once __DIR__ . '/util/PublicFunction.php';
+
+// 启动会话
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // 包含路由配置文件
 require_once __DIR__ . '/routes.php';

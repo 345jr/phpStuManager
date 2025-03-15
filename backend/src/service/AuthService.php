@@ -12,6 +12,14 @@ class AuthService {
         $this->studentDAO = new StudentDAO($db);
     }
 
+    /**
+     * 验证用户身份
+     *
+     * @param string $email 用户邮箱
+     * @param string $password 用户密码
+     * @param string $role 用户角色（admin或student）
+     * @return array|null 返回用户信息数组，如果验证失败则返回null
+     */
     public function authenticate($email, $password, $role) {
         if ($role === 'admin') {
             $user = $this->adminDAO->getAdminByEmail($email);
