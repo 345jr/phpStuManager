@@ -72,7 +72,7 @@ onMounted(() => {
       </div>
       <div v-else-if="course" class="container mx-auto px-4 py-8 max-w-4xl">
         <div class="relative">
-          <img :src="`${course.course_id}.jpg`" alt="Course Image" class="w-full h-64 object-cover">
+          <!-- <img :src="`${course.course_id}.jpg`" alt="Course Image" class="w-full h-64 object-cover"> -->
           <button class="absolute top-1 right-4 bg-gray-800 text-white px-2 py-1 rounded-md hover:bg-gray-700 transition-colors duration-200" @click="goBack">
             <i class="pi pi-arrow-right text-lg"></i>
             <span class="absolute inset-0 rounded-md  opacity-0 hover:opacity-100 transition-opacity duration-300"

@@ -22,11 +22,13 @@ function setSessionCookie() {
  */
 function checkLogin() {
     if (isset($_SESSION['user_id'])) {
+        http_response_code(200);
+        echo json_encode(['message' => '已登录']);
         setSessionCookie();
         return true;
     } else {
         http_response_code(401);
-        echo json_encode(['message' => 'Unauthorized']);
+        echo json_encode(['message' => '未登录']);
         return false;
     }
 }

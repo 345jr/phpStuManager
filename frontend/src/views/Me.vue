@@ -79,7 +79,7 @@ onMounted(() => {
     <div class="max-w-4xl mx-auto">
       <!-- 学生信息 -->
       <div class="bg-white shadow-md rounded-lg p-6 mb-8 flex items-center space-x-6">
-        <img :src="StudentInfo.avatar" alt="学生头像" class="w-24 h-24 rounded-full object-cover">
+        <img src="../../public/img/user.svg" alt="学生头像" class="w-24 h-24 rounded-full object-cover">
         <div>
           <h1 class="text-2xl font-bold text-gray-800">姓名 :{{ StudentInfo.name }}</h1>
           <p class="text-gray-600">学号: {{ StudentInfo.id }}</p>
