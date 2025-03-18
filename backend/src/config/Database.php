@@ -1,5 +1,6 @@
 <?php
 require_once "db_config.php";
+// require_once "db_config_local.php";
 
 class Database {
     private static $instance = null;

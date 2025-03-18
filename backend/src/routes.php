@@ -8,6 +8,7 @@
 $allowed_origins = [
     'http://a39.php.youyue.info',
     'http://199.115.229.247:8080'
+    // 'http://localhost:3000'//本地测试用可删除
 ];
 
 if (isset($_SERVER['HTTP_ORIGIN']) && in_array($_SERVER['HTTP_ORIGIN'], $allowed_origins)) {
